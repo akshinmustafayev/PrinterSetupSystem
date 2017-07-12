@@ -1,0 +1,1 @@
+"\\prnserver01\scripts$\printer1\printer1.vbs"
