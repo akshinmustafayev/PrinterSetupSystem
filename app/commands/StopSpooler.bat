@@ -1,0 +1,1 @@
+net stop "Print Spooler"

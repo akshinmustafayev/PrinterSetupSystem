@@ -223,28 +223,16 @@
 				while($row = $result->fetch_assoc())
 				{
 					if(file_exists('uploads/'.$row['file1']))
-					{
-						chown('uploads/'.$row['file1'], 666);
 						unlink('uploads/'.$row['file1']);
-					}
 					
 					if(file_exists('uploads/'.$row['file2']))
-					{
-						chown('uploads/'.$row['file2'], 666);
 						unlink('uploads/'.$row['file2']);
-					}
 				
 					if(file_exists('uploads/'.$row['file3']))
-					{
-						chown('uploads/'.$row['file3'], 666);
 						unlink('uploads/'.$row['file3']);
-					}
 				
 					if(file_exists('uploads/'.$row['image']))
-					{
-						chown('uploads/'.$row['image'], 666);
 						unlink('uploads/'.$row['image']);
-					}
 				}
 			}
 			
@@ -458,15 +446,14 @@
 				return false;
 		}
 		
-		public function generateToken()
+		public function executeFile($file)
 		{
-			$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-			$charactersLength = strlen($characters);
-			$randomString = '';
-			for ($i = 0; $i < 11; $i++) {
-				$randomString .= $characters[rand(0, $charactersLength - 1)];
+			$lines = '';
+			exec('cmd.exe /c '.$file, $output);
+			foreach ($output as $item) {
+				$lines = $lines.$item.'<br>';
 			}
-			return md5($randomString);
+			return $lines;
 		}
 	}
 ?>

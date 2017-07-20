@@ -14,7 +14,9 @@
 		<!-- Custom CSS -->
 		<link href="app/views/css/style.css" rel="stylesheet">
 		<script src="app/views/js/jquery.js"></script>
-
+		<script src="app/views/js/SmoothScroll.min.js"></script>
+		<script src="app/views/js/jarallax.js"></script>
+		
 		<!--[if lt IE 9]>
 			<script src="app/views/js/html5shiv.js"></script>
 			<script src="app/views/js/respond.min.js"></script>

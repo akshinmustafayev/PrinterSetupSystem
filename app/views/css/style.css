@@ -175,27 +175,9 @@
 	} 
 }
 
-.dashboard{
-	padding: 2rem 1rem;
-    margin-bottom: 2rem;
-    background-color: #eceeef;
-    border-radius: .3rem;
-}
-
 .printer-img{
 	width:100%;
 	border-radius:4px;
-}
-
-.dashboard-img{
-	float: right;
-    margin-top: -205px;
-    position: absolute;
-    right: 0px;
-    margin-right: 35px;
-    opacity: 0.2;
-    width: 200px;
-    z-index: 0;
 }
 
 .faqHeader{
@@ -224,4 +206,33 @@
 .table th{
 	overflow: hidden;
 	text-overflow:ellipsis;
+}
+
+.jarallax {
+	position: relative;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}
+
+.jarallax {
+	height: 600px !important;
+}
+
+.jarallax-gap {
+	padding: 50px;
+	text-align: center !important;
+	color:white;
+}
+
+.jarallax-table {
+    display: table;
+    width: 100%;
+    height: 600px;
+    background-color: rgba(39,35,51,0.8);
+}
+.jarallax-table-cell {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
 }

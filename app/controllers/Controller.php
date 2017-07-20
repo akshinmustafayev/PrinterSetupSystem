@@ -3,6 +3,12 @@
 	{
 		function __construct($get, $post)
 		{
+			if (preg_match('/MSIE\s(?P<v>\d+)/i', @$_SERVER['HTTP_USER_AGENT'], $B) && $B['v'] <= 8) 
+			{
+				$views = new Views;
+				$views->addView('ie', 'ie.php');
+				exit();
+			}
 			if(isset($post['login']) && isset($post['password']))
 			{
 				if(Login::logIn($post['login'], $post['password']))
@@ -38,7 +44,7 @@
 				if(Login::checkSession())
 				{
 					$image = '';
-					$image_name = Info::generateToken();
+					$image_name = PrinterSystem::generateToken();
 					if(Info::uploadFile('photo', 'png', $image_name))
 					{
 						$image = $image_name.'.png';
@@ -94,7 +100,7 @@
 				if(Login::checkSession())
 				{
 					$image = '';
-					$image_name = Info::generateToken();
+					$image_name = PrinterSystem::generateToken();
 					if(Info::uploadFile('photo', 'png', $image_name))
 					{
 						$image = $image_name.'.png';
@@ -112,7 +118,7 @@
 				if(Login::checkSession() && $post['printerbranch'] != '' && $post['printerbranch'] != '0')
 				{
 					$image = '';
-					$image_name = Info::generateToken();
+					$image_name = PrinterSystem::generateToken();
 					if(Info::uploadFile('photo', 'png', $image_name))
 					{
 						$image = $image_name.'.png';
@@ -123,7 +129,7 @@
 					}
 					
 					$file1 = '';
-					$file1_name = Info::generateToken();
+					$file1_name = PrinterSystem::generateToken();
 					if(Info::uploadFile('file1', 'bat', $file1_name))
 					{
 						$file1 = $file1_name.'.bat';
@@ -134,7 +140,7 @@
 					}
 					
 					$file2 = '';
-					$file2_name = Info::generateToken();
+					$file2_name = PrinterSystem::generateToken();
 					if(Info::uploadFile('file2', 'bat', $file2_name))
 					{
 						$file2 = $file2_name.'.bat';
@@ -145,7 +151,7 @@
 					}
 					
 					$file3 = '';
-					$file3_name = Info::generateToken();
+					$file3_name = PrinterSystem::generateToken();
 					if(Info::uploadFile('file3', 'bat', $file3_name))
 					{
 						$file3 = $file3_name.'.bat';
@@ -163,7 +169,7 @@
 				if(Login::checkSession() && $post['editprinterbranch'] != '' && $post['editprinterbranch'] != '0')
 				{
 					$image = '';
-					$image_name = Info::generateToken();
+					$image_name = PrinterSystem::generateToken();
 					if(Info::uploadFile('photo', 'png', $image_name))
 					{
 						$image = $image_name.'.png';
@@ -174,7 +180,7 @@
 					}
 					
 					$file1 = '';
-					$file1_name = Info::generateToken();
+					$file1_name = PrinterSystem::generateToken();
 					if(Info::uploadFile('file1', 'bat', $file1_name))
 					{
 						$file1 = $file1_name.'.bat';
@@ -185,7 +191,7 @@
 					}
 					
 					$file2 = '';
-					$file2_name = Info::generateToken();
+					$file2_name = PrinterSystem::generateToken();
 					if(Info::uploadFile('file2', 'bat', $file2_name))
 					{
 						$file2 = $file2_name.'.bat';
@@ -196,7 +202,7 @@
 					}
 					
 					$file3 = '';
-					$file3_name = Info::generateToken();
+					$file3_name = PrinterSystem::generateToken();
 					if(Info::uploadFile('file3', 'bat', $file3_name))
 					{
 						$file3 = $file3_name.'.bat';
@@ -238,6 +244,47 @@
 					$views->addView('header', 'header.php');
 					$views->addView('menu', 'menu.php');
 					$views->addView('addbranch', 'addbranch.php');
+					$views->addView('footer', 'footer.php');
+				}
+				else
+					header("Location: index.php");
+			}
+			else if(isset($get['commands']))
+			{
+				if(Login::checkSession())
+				{
+					$views = new Views;
+					$views->addView('header', 'header.php');
+					$views->addView('menu', 'menu.php');
+					$views->addView('commands', 'commands.php');
+					if(isset($get['startservice']))
+					{
+						echo '<br><br>';
+						echo '<div class="container"><h4 class="form-signin-heading">Output</h4><div class="well">';
+						echo Info::executeFile('C:\xampp\htdocs\app\commands\StartSpooler.bat');
+						echo '</div></div>';
+					}
+					if(isset($get['stopservice']))
+					{
+						echo '<br><br>';
+						echo '<div class="container"><h4 class="form-signin-heading">Output</h4><div class="well">';
+						echo Info::executeFile('C:\xampp\htdocs\app\commands\StopSpooler.bat');
+						echo '</div></div>';
+					}
+					if(isset($get['restartservice']))
+					{
+						echo '<br><br>';
+						echo '<div class="container"><h4 class="form-signin-heading">Output</h4><div class="well">';
+						echo Info::executeFile('C:\xampp\htdocs\app\commands\RestartSpooler.bat');
+						echo '</div></div>';
+					}
+					if(isset($get['removealljobs']))
+					{
+						echo '<br><br>';
+						echo '<div class="container"><h4 class="form-signin-heading">Output</h4><div class="well">';
+						echo Info::executeFile('C:\xampp\htdocs\app\commands\RemoveAllJobs.bat');
+						echo '</div></div>';
+					}
 					$views->addView('footer', 'footer.php');
 				}
 				else
