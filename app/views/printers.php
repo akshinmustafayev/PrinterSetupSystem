@@ -7,4 +7,7 @@
 					$info->getPrinters()
 				?>
 			</div>
+			<div class="scroll-up">
+				<a href="#menu"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+			</div>
 		</div>

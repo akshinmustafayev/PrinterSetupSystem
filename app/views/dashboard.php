@@ -8,7 +8,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="jarallax-gap" style="background-color:#272333;">
+			<!--<div class="jarallax-gap" style="background-color:#2D2D2D;">
 				<h3><?php echo $lang['DASHBOARD_TEXT_2']; ?></h3>
 			</div>
 			<div class="jarallax" style="background-image: url(app/views/img/jarallax/image2.jpg);"></div>
@@ -17,11 +17,15 @@
 			<div class="jarallax" style="background-image: url(app/views/img/jarallax/image5.jpg);"></div>
 			<div class="jarallax" style="background-image: url(app/views/img/jarallax/image6.jpg);"></div>
 			<div class="jarallax" style="background-image: url(app/views/img/jarallax/image7.jpg);"></div>
+			-->
+			<div class="jarallax-gap-small" style="background-color:#2D2D2D;">
+				<a href="#menu"><span class="glyphicon glyphicon-chevron-up jarallax-gap-small-icon" aria-hidden="true"></span></a>
+			</div>
 			<div class="jarallax-gap" style="background-color:#222222;">
 				<p>
 					Akshin Mustafayev
 				</p>
 				<small>
-					<?php echo $lang['DASHBOARD_FOOTER']; ?> <a href="mailto:akshin.mustafayev@unibank.az">Akshin Mustafayev</a>
+					<?php echo $lang['DASHBOARD_FOOTER']; ?> <a href="mailto:">Akshin Mustafayev</a>
 				</small>
 			</div>

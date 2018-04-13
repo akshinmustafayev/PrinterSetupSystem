@@ -1,4 +1,4 @@
-		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="position: relative;">
+		<nav id="menu" class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="position: relative;">
 			<div class="container">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="index.php"><?php echo $lang['BRAND']; ?></a>
