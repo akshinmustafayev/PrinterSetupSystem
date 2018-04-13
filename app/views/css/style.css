@@ -180,6 +180,10 @@
 	border-radius:4px;
 }
 
+.breadcrumb{
+	border: 1px #A8A8A8 solid;
+}
+
 .faqHeader{
 	font-size: 27px;
 	margin-bottom:20px;
@@ -206,6 +210,17 @@
 .table th{
 	overflow: hidden;
 	text-overflow:ellipsis;
+}
+
+.scroll-up{
+	padding: 20px;
+    width: 100%;
+    text-align: center;
+	margin-bottom: 20px;
+}
+
+.scroll-up a{
+	font-size: 30px;
 }
 
 .jarallax {
@@ -235,4 +250,15 @@
     display: table-cell;
     text-align: center;
     vertical-align: middle;
+}
+
+.jarallax-gap-small {
+	padding: 30px;
+	text-align: center !important;
+	color:white;
+}
+
+.jarallax-gap-small-icon {
+	color:white;
+	font-size: 45px;
 }
