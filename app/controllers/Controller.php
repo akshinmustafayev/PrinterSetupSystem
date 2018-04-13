@@ -1,14 +1,17 @@
 <?php
+	require('app/configs/configs.php');
+
 	class Controller
 	{
 		function __construct($get, $post)
 		{
-			if (preg_match('/MSIE\s(?P<v>\d+)/i', @$_SERVER['HTTP_USER_AGENT'], $B) && $B['v'] <= 8) 
+			if (preg_match('/MSIE\s(?P<v>\d+)/i', @$_SERVER['HTTP_USER_AGENT'], $B) && $B['v'] <= 8 && BLOCK_IE == true) 
 			{
 				$views = new Views;
 				$views->addView('ie', 'ie.php');
 				exit();
 			}
+			
 			if(isset($post['login']) && isset($post['password']))
 			{
 				if(Login::logIn($post['login'], $post['password']))
@@ -17,7 +20,10 @@
 				}
 				else
 				{
-					header("Location: index.php?admin=123123&error");
+					if(USE_ADMIN_KEY)
+						header("Location: index.php?admin=".ADMIN_KEY."&error");
+					else
+						header("Location: index.php?admin=&error");
 				}
 			}
 			else if(isset($post['newpass']) && isset($post['newpassagain']))
@@ -95,7 +101,7 @@
 					$views->addView('footer', 'footer.php');
 				}
 			}
-			else if(isset($post['editbranchid']) && isset($post['editbranchname']) && ($_FILES['photo']['name'] == true || $_FILES['photo']['name'] == false))
+			else if(isset($post['editbranchid']) && isset($post['priority']) && isset($post['editbranchname']) && ($_FILES['photo']['name'] == true || $_FILES['photo']['name'] == false))
 			{
 				if(Login::checkSession())
 				{
@@ -109,7 +115,7 @@
 					{
 						$image = 'none';
 					}
-					Info::updateBranch($post['editbranchid'], $post['editbranchname'], $image);
+					Info::updateBranch($post['editbranchid'], $post['priority'], $post['editbranchname'], $image);
 				}
 				header("Location: index.php?allbranches");
 			}
@@ -224,7 +230,7 @@
 			{
 				Login::logOut();
 			}
-			else if(isset($get['admin']) && $get['admin'] == 'a7cd1d8986baac21660fcc0ada9f72d7')
+			else if(isset($get['admin']) && ((USE_ADMIN_KEY == true && $get['admin'] == ADMIN_KEY) || USE_ADMIN_KEY == false))
 			{
 				if(Login::checkSession())
 					header("Location: index.php");
@@ -451,7 +457,7 @@
 							$views->addView('header', 'header.php');
 							$views->addView('menu', 'menu.php');
 							$views->addView('printers_breadcrumb', 'printers_breadcrumb.php');
-							$views->addView('printers', 'printers.php');
+							$views->addView('printers', 'printers.php', $get['printers']);
 							$views->addView('footer', 'footer.php');
 						}
 					}

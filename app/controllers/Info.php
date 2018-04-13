@@ -8,7 +8,7 @@
 		public function getBranches()
 		{
 			$db = new Database;
-			$result = $db->dbQuery('SELECT * FROM branches');
+			$result = $db->dbQuery('SELECT * FROM branches ORDER BY priority ASC');
 			if(!is_null($result))
 			{
 				while($row = $result->fetch_assoc())
@@ -61,14 +61,14 @@
 					echo '<h2>'.$row['name'].'</h2>';
 					echo '<table class="table">';
 					echo '<tr><td>'.$lang['PRINTER_DESCRIPTION'].'</td><td>'.$row['description'].'</td></tr>';
-					echo '<tr><td>'.$lang['PRINTER_IP'].'</td><td>'.$row['ipaddress'].'</td></tr>';
+					echo '<tr><td>'.$lang['PRINTER_IP'].'</td><td><a href="http://'.$row['ipaddress'].'" target="_blank">'.$row['ipaddress'].'</a></td></tr>';
 					echo '</table>';
 					if($row['file1'] != '' && $row['file1'] != 'none')
-						echo '<a style="color: white;" href="uploads/'.$row['file1'].'"><button type="button" class="btn btn-success btn-lg" style="margin-right:10px;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'.$lang['PRINTER_INSTALL1'].'</button></a>';
+						echo '<a style="color: white;" target="_blank" href="uploads/'.$row['file1'].'" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'.$lang['PRINTER_INSTALL1'].'</a>';
 					if($row['file2'] != '' && $row['file2'] != 'none')
-						echo '<a style="color: white;" href="uploads/'.$row['file2'].'"><button type="button" class="btn btn-success btn-lg" style="margin-right:10px;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'.$lang['PRINTER_INSTALL2'].'</button></a>';
+						echo '<a style="color: white;margin-right:10px;" target="_blank" href="uploads/'.$row['file2'].'" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'.$lang['PRINTER_INSTALL2'].'</a>';
 					if($row['file3'] != '' && $row['file3'] != 'none')
-						echo '<a style="color: white;" href="uploads/'.$row['file3'].'"><button type="button" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'.$lang['PRINTER_INSTALL3'].'</button></a>';
+						echo '<a style="color: white;margin-right:10px;" target="_blank" href="uploads/'.$row['file3'].'" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'.$lang['PRINTER_INSTALL3'].'</a>';
 					echo '</div>';
 				}
 			} 
@@ -77,7 +77,7 @@
 		public function getBranchesSelect()
 		{
 			$db = new Database;
-			$result = $db->dbQuery('SELECT * FROM branches');
+			$result = $db->dbQuery('SELECT * FROM branches ORDER BY priority ASC');
 			if(!is_null($result))
 			{
 				while($row = $result->fetch_assoc())
@@ -103,7 +103,7 @@
 			}
 			
 			$db2 = new Database;
-			$result2 = $db2->dbQuery('SELECT * FROM branches');
+			$result2 = $db2->dbQuery('SELECT * FROM branches ORDER BY priority ASC');
 			if(!is_null($result2))
 			{
 				while($row = $result2->fetch_assoc())
@@ -170,7 +170,7 @@
 				$files = $files.', file1="'.$printer_file1.'"';
 			if($printer_file2 != '' && $printer_file2 != 'none')
 				$files = $files.', file2="'.$printer_file2.'"';
-			if($printer_file23 != '' && $printer_file3 != 'none')
+			if($printer_file3 != '' && $printer_file3 != 'none')
 				$files = $files.', file3="'.$printer_file3.'"';
 			
 			$db = new Database;
@@ -183,13 +183,13 @@
 				return false;
 		}
 		
-		public function updateBranch($branch_id, $branch_name, $branch_photo)
+		public function updateBranch($branch_id, $priority, $branch_name, $branch_photo)
 		{
 			$files = '';
 			if($branch_photo != '' && $branch_photo != 'none')
 				$files = ', image="'.$branch_photo.'"';
 			$db = new Database;
-			$result = $db->dbQuery('UPDATE branches set branch_name="'.$branch_name.'"'.$files.'" where id = "'.$branch_id.'"');
+			$result = $db->dbQuery('UPDATE branches set priority="'.$priority.'", branch_name="'.$branch_name.'"'.$files.' where id = "'.$branch_id.'"');
 			if($result)
 			{
 				return true;
@@ -283,7 +283,7 @@
 			{
 				while($row = $result->fetch_assoc())
 				{
-					echo '<tr><td>'.$row['name'].'</td><td>'.$row['branch_name'].'</td><td>'.$row['description'].'</td><td>'.$row['ipaddress'].'</td><td><a href="uploads/'.$row['file1'].'">'.$row['file1'].'</a></td><td><a href="uploads/'.$row['file2'].'">'.$row['file2'].'</a></td><td><a href="uploads/'.$row['file3'].'">'.$row['file3'].'</a></td><td><a href="index.php?allprinters&deleteprinter='.$row['id'].'"><span class="glyphicon glyphicon-trash" aria-hidden="true" style="cursor:pointer;color:#ce4844;"></span></a></td><td><a href="index.php?editprinter='.$row['id'].'"><span class="glyphicon glyphicon-edit" aria-hidden="true" style="cursor:pointer;color:#5bc0de;"></span></a></td></tr>';
+					echo '<tr><td>'.$row['name'].'</td><td>'.$row['branch_name'].'</td><td>'.$row['description'].'</td><td>'.$row['ipaddress'].'</td><td><a href="uploads/'.$row['file1'].'">'.$row['file1'].'</a></td><td class="hidden"><a href="uploads/'.$row['file2'].'">'.$row['file2'].'</a></td><td class="hidden"><a href="uploads/'.$row['file3'].'">'.$row['file3'].'</a></td><td><a href="index.php?allprinters&deleteprinter='.$row['id'].'"><span class="glyphicon glyphicon-trash" aria-hidden="true" style="cursor:pointer;color:#ce4844;"></span></a></td><td><a href="index.php?editprinter='.$row['id'].'"><span class="glyphicon glyphicon-edit" aria-hidden="true" style="cursor:pointer;color:#5bc0de;"></span></a></td></tr>';
 				}
 			}
 		}
@@ -291,7 +291,7 @@
 		public function getBranchesAdmin()
 		{
 			$db = new Database;
-			$result = $db->dbQuery('SELECT * FROM branches');
+			$result = $db->dbQuery('SELECT * FROM branches ORDER BY priority ASC');
 			if(!is_null($result))
 			{
 				while($row = $result->fetch_assoc())
@@ -376,15 +376,15 @@
 					echo '<h4 class="form-signin-heading">'.$lang['ADMIN_ADDBRANCH_FILE1'].'</h4>';
 					echo '<input name="file1" type="file"/>';
 					
-					echo '<br>';
+					echo '<br class="hidden">';
 					
-					echo '<h4 class="form-signin-heading">'.$lang['ADMIN_ADDBRANCH_FILE2'].'</h4>';
-					echo '<input name="file2" type="file"/>';
+					echo '<h4 class="form-signin-heading hidden">'.$lang['ADMIN_ADDBRANCH_FILE2'].'</h4>';
+					echo '<input class="hidden" name="file2" type="file"/>';
 					
-					echo '<br>';
+					echo '<br class="hidden">';
 					
-					echo '<h4 class="form-signin-heading">'.$lang['ADMIN_ADDBRANCH_FILE3'].'</h4>';
-					echo '<input name="file3" type="file"/>';
+					echo '<h4 class="form-signin-heading hidden">'.$lang['ADMIN_ADDBRANCH_FILE3'].'</h4>';
+					echo '<input class="hidden" name="file3" type="file"/>';
 					
 					echo '<br>';
 					echo '<br>';
@@ -410,6 +410,11 @@
 					
 					echo '<h4 class="form-signin-heading">'.$lang['ADMIN_ADDBRANCH_NAME'].'</h4>';
 					echo '<input name="editbranchname" type="text" class="form-control" placeholder="'.$lang['ADMIN_ADDBRANCH_NAME_PLACEHOLDER'].'" required="" autofocus="" value="'.$row['branch_name'].'">';
+					
+					echo '<br>';
+					
+					echo '<h4 class="form-signin-heading">'.$lang['ADMIN_ADDBRANCH_PRIORITY'].'</h4>';
+					echo '<input name="priority" type="text" class="form-control" placeholder="'.$lang['ADMIN_ADDBRANCH_PRIORITY_PLACEHOLDER'].'" required="" autofocus="" value="'.$row['priority'].'">';
 					
 					echo '<br>';
 					
