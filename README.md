@@ -3,6 +3,8 @@ Printer Setup System
 
 Screenshots provided here:
 
+![alt text](https://raw.githubusercontent.com/akshinmustafayev/PrinterSetupSystem/master/images/screen1.png)
+
 ![alt text](https://raw.githubusercontent.com/akshinmustafayev/PrinterSetupSystem/master/images/39f173c702f146f88a118260cae1ee05.JPG)
 
 ![alt text](https://raw.githubusercontent.com/akshinmustafayev/PrinterSetupSystem/master/images/55e5f001c8384468841b6b73e0e19e47.JPG)
